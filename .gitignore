@@ -1,0 +1,5 @@
+.idea
+www
+!www/example.loc
+hosts
+!hosts/example.conf

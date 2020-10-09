@@ -1,18 +1,32 @@
 version: '3'
 services:
-    nginx:
-        image: nginx:latest
+    apache:
+        build:
+            context: './apache/'
+        depends_on:
+            - php
+            - mysql
         ports:
             - "80:80"
-#            - "443:443"
+            - "443:443"
         volumes:
-            - ./hosts:/etc/nginx/conf.d
             - ./www:/var/www
-            - ./logs:/var/log/nginx
-        links:
-            - php
+            - ./apache/key:/key
+        container_name: apache
+#    nginx:
+#        image: nginx:latest
+#        ports:
+#            - "80:80"
+##            - "443:443"
+#        volumes:
+#            - ./hosts:/etc/nginx/conf.d
+#            - ./www:/var/www
+#            - ./logs:/var/log/nginx
+#        links:
+#            - php
     php:
-        build: ./images/php
+        build: ./images/php/7.4
+#        build: ./images/php/fpm-alpine
         links:
             - mysql
         volumes:
@@ -25,3 +39,21 @@ services:
             - ./mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: secret
+#    mongo:
+#        image: mongo
+#        restart: always
+#        environment:
+#            MONGO_INITDB_ROOT_USERNAME:
+#            MONGO_INITDB_ROOT_PASSWORD:
+#        ports:
+#            - "27017:27017"
+#    mongo-express:
+#        image: mongo-express
+#        restart: always
+#        ports:
+#            - 8081:8081
+#        environment:
+#            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+#            ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
+

@@ -2,7 +2,7 @@ version: '3'
 services:
     apache:
         build:
-            context: './apache/'
+            context: './images/apache2/'
         depends_on:
             - php
             - mysql
@@ -11,7 +11,7 @@ services:
             - "443:443"
         volumes:
             - ./www:/var/www
-            - ./apache/key:/key
+            - ./images/apache2/key:/key
         container_name: apache
 #    nginx:
 #        image: nginx:latest
@@ -19,14 +19,13 @@ services:
 #            - "80:80"
 ##            - "443:443"
 #        volumes:
-#            - ./hosts:/etc/nginx/conf.d
+#            - ./images/nginx/hosts:/etc/nginx/conf.d
 #            - ./www:/var/www
 #            - ./logs:/var/log/nginx
 #        links:
 #            - php
     php:
         build: ./images/php/7.4
-#        build: ./images/php/fpm-alpine
         links:
             - mysql
         volumes:

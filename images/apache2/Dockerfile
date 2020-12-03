@@ -8,7 +8,7 @@ RUN apk update; \
 #RUN a2enmod rewrite
 
 # Copy apache vhost file to proxy php requests to php-fpm container
-COPY ./demo.apache.conf /usr/local/apache2/conf/demo.apache.conf
+#COPY ./conf/admin_generate.apache.conf /usr/local/apache2/conf/admin_generate.apache.conf
 COPY ./key/server.key  /usr/local/apache2/conf/server.key
 COPY ./key/server.crt  /usr/local/apache2/conf/server.crt
 
@@ -22,6 +22,6 @@ RUN sed -i '/LoadModule rewrite_module/s/^#//g' /usr/local/apache2/conf/httpd.co
      sed -i 's#AllowOverride [Nn]one#AllowOverride All#' /usr/local/apache2/conf/httpd.conf
 
 
-RUN echo "Include /usr/local/apache2/conf/demo.apache.conf" \
+RUN echo "Include /usr/local/apache2/site/*" \
     >> /usr/local/apache2/conf/httpd.conf
 

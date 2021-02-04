@@ -25,17 +25,17 @@ services:
 #        links:
 #            - php
     php:
-        build: ./images/php/7.4
+        build: ./images/php/5.6
         links:
             - mysql
         volumes:
             - ./www:/var/www
     mysql:
-        image: mysql:8
+        image: mysql:5.7
         ports:
             - "3306:3306"
         volumes:
-            - ./mysql:/var/lib/mysql
+            - ./data/mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: secret
 #    mongo:

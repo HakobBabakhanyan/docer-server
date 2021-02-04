@@ -1,12 +1,13 @@
-FROM php:7.4-fpm
+FROM php:5.6-fpm
 RUN apt-get update && apt-get install -y \
         curl \
+        git \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libzip-dev \
        libxml2-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd zip mysqli pdo pdo_mysql soap
+    && docker-php-ext-install -j$(nproc) gd zip mysqli pdo pdo_mysql soap mysql
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends gnupg && \
